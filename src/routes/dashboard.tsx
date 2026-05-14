@@ -438,7 +438,7 @@ function Dashboard() {
             >
               <div className="h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={productionData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                  <AreaChart data={productionData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }} onClick={(e) => handleAxisClick("period", e)} style={{ cursor: "pointer" }}>
                     <defs>
                       <linearGradient id="g-oleo" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor={COLORS.green} stopOpacity={0.45} />
