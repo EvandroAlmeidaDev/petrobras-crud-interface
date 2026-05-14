@@ -97,7 +97,7 @@ function ChartTooltip({ active, payload, label }: any) {
 function DetailPage() {
   const { type, id, period } = Route.useSearch();
   const navigate = useNavigate();
-  const meta = META[type];
+  const meta = META[type as DrillType];
   const Icon = meta.icon;
 
   const baseValue =
