@@ -507,13 +507,13 @@ function Dashboard() {
             <ChartCard title="Tendência vs. meta" subtitle="Produção real x planejada" badge="Linha">
               <div className="h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                  <LineChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }} onClick={(e) => handleAxisClick("period", e)} style={{ cursor: "pointer" }}>
                     <CartesianGrid stroke={COLORS.grid} vertical={false} />
                     <XAxis dataKey="mes" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <YAxis stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <Tooltip content={<ChartTooltip />} />
                     <Legend wrapperStyle={{ fontSize: 11 }} iconType="circle" />
-                    <Line type="monotone" dataKey="oleo" name="Real" stroke={COLORS.green} strokeWidth={2.5} dot={{ r: 3 }} />
+                    <Line type="monotone" dataKey="oleo" name="Real" stroke={COLORS.green} strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
                     <Line type="monotone" dataKey="meta" name="Meta" stroke={COLORS.yellow} strokeWidth={2} strokeDasharray="5 4" dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
