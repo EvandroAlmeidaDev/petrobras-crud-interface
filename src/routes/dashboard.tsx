@@ -523,7 +523,7 @@ function Dashboard() {
             <ChartCard title="Composto: barras + linha" subtitle="Produção e meta combinadas" badge="Composto">
               <div className="h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                  <ComposedChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }} onClick={(e) => handleAxisClick("period", e)} style={{ cursor: "pointer" }}>
                     <CartesianGrid stroke={COLORS.grid} vertical={false} />
                     <XAxis dataKey="mes" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <YAxis stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
