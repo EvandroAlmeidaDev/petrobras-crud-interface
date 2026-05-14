@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   Area,
@@ -230,6 +230,26 @@ function ChartCard({
 
 function Dashboard() {
   const [period, setPeriod] = useState("12m");
+  const navigate = useNavigate();
+
+  const drill = (
+    type: "unit" | "refinery" | "period" | "well" | "segment",
+    id: string,
+    p?: string,
+  ) => {
+    navigate({
+      to: "/dashboard/detail",
+      search: { type, id, period: p ?? period },
+    });
+  };
+
+  const handleAxisClick = (
+    type: "period" | "refinery",
+    e: any,
+  ) => {
+    const label = e?.activeLabel ?? e?.activePayload?.[0]?.payload?.mes ?? e?.activePayload?.[0]?.payload?.name;
+    if (label) drill(type, String(label));
+  };
 
   const stats = useMemo(
     () => [
@@ -293,6 +313,9 @@ function Dashboard() {
             <p className="text-xs text-muted-foreground">Operações / Visão geral</p>
             <h1 className="text-base font-semibold tracking-tight">
               Dashboard executivo de operações
+              <span className="ml-2 inline-flex items-center rounded-full border border-[oklch(0.85_0.08_165)] bg-[oklch(0.95_0.06_165)] px-2 py-0.5 text-[10px] font-medium text-[oklch(0.32_0.11_168)]">
+                Drill-down ativo
+              </span>
             </h1>
           </div>
           <div className="flex items-center gap-2">
@@ -418,7 +441,7 @@ function Dashboard() {
             >
               <div className="h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={productionData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                  <AreaChart data={productionData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }} onClick={(e) => handleAxisClick("period", e)} style={{ cursor: "pointer" }}>
                     <defs>
                       <linearGradient id="g-oleo" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor={COLORS.green} stopOpacity={0.45} />
@@ -454,6 +477,8 @@ function Dashboard() {
                       outerRadius={95}
                       paddingAngle={2}
                       stroke="none"
+                      onClick={(d: any) => drill("segment", d?.name ?? "Segmento")}
+                      style={{ cursor: "pointer" }}
                     >
                       {sourceMix.map((s, i) => (
                         <Cell key={i} fill={s.color} />
@@ -471,7 +496,7 @@ function Dashboard() {
             <ChartCard title="Capacidade por refinaria" subtitle="Mil barris/dia" badge="Barras">
               <div className="h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={refineryData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                  <BarChart data={refineryData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }} onClick={(e) => handleAxisClick("refinery", e)} style={{ cursor: "pointer" }}>
                     <CartesianGrid stroke={COLORS.grid} vertical={false} />
                     <XAxis dataKey="name" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <YAxis stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
@@ -485,13 +510,13 @@ function Dashboard() {
             <ChartCard title="Tendência vs. meta" subtitle="Produção real x planejada" badge="Linha">
               <div className="h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                  <LineChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }} onClick={(e) => handleAxisClick("period", e)} style={{ cursor: "pointer" }}>
                     <CartesianGrid stroke={COLORS.grid} vertical={false} />
                     <XAxis dataKey="mes" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <YAxis stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <Tooltip content={<ChartTooltip />} />
                     <Legend wrapperStyle={{ fontSize: 11 }} iconType="circle" />
-                    <Line type="monotone" dataKey="oleo" name="Real" stroke={COLORS.green} strokeWidth={2.5} dot={{ r: 3 }} />
+                    <Line type="monotone" dataKey="oleo" name="Real" stroke={COLORS.green} strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
                     <Line type="monotone" dataKey="meta" name="Meta" stroke={COLORS.yellow} strokeWidth={2} strokeDasharray="5 4" dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
@@ -501,7 +526,7 @@ function Dashboard() {
             <ChartCard title="Composto: barras + linha" subtitle="Produção e meta combinadas" badge="Composto">
               <div className="h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                  <ComposedChart data={productionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }} onClick={(e) => handleAxisClick("period", e)} style={{ cursor: "pointer" }}>
                     <CartesianGrid stroke={COLORS.grid} vertical={false} />
                     <XAxis dataKey="mes" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <YAxis stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
@@ -560,7 +585,7 @@ function Dashboard() {
                     <YAxis type="number" dataKey="vazao" name="Vazão" unit=" m³/h" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <ZAxis type="number" dataKey="size" range={[40, 320]} />
                     <Tooltip cursor={{ strokeDasharray: "3 3" }} content={<ChartTooltip />} />
-                    <Scatter data={scatterData} fill={COLORS.green} fillOpacity={0.65} />
+                    <Scatter data={scatterData} fill={COLORS.green} fillOpacity={0.65} onClick={(d: any) => drill("well", d?.poco ?? "Poço")} style={{ cursor: "pointer" }} />
                   </ScatterChart>
                 </ResponsiveContainer>
               </div>
@@ -583,6 +608,8 @@ function Dashboard() {
                     stroke="#fff"
                     fill={COLORS.green}
                     content={<TreemapContent />}
+                    onClick={(d: any) => drill("segment", d?.name ?? "Segmento")}
+                    style={{ cursor: "pointer" }}
                   />
                 </ResponsiveContainer>
               </div>
@@ -603,13 +630,14 @@ function Dashboard() {
                       {row.map((v, hi) => {
                         const intensity = v / heatMax;
                         return (
-                          <div
+                          <button
                             key={`c-${di}-${hi}`}
-                            className="aspect-square rounded-sm"
+                            onClick={() => drill("period", `${heatDays[di]} ${heatHours[hi]}h`)}
+                            className="aspect-square rounded-sm transition-transform hover:scale-110 hover:ring-2 hover:ring-[var(--petrobras-green)] cursor-pointer"
                             style={{
                               background: `oklch(${0.95 - intensity * 0.55} ${0.04 + intensity * 0.12} 165)`,
                             }}
-                            title={`${heatDays[di]} ${heatHours[hi]}h: ${v}`}
+                            title={`${heatDays[di]} ${heatHours[hi]}h: ${v} — clique para detalhar`}
                           />
                         );
                       })}
