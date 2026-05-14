@@ -582,7 +582,7 @@ function Dashboard() {
                     <YAxis type="number" dataKey="vazao" name="Vazão" unit=" m³/h" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <ZAxis type="number" dataKey="size" range={[40, 320]} />
                     <Tooltip cursor={{ strokeDasharray: "3 3" }} content={<ChartTooltip />} />
-                    <Scatter data={scatterData} fill={COLORS.green} fillOpacity={0.65} />
+                    <Scatter data={scatterData} fill={COLORS.green} fillOpacity={0.65} onClick={(d: any) => drill("well", d?.poco ?? "Poço")} style={{ cursor: "pointer" }} />
                   </ScatterChart>
                 </ResponsiveContainer>
               </div>
