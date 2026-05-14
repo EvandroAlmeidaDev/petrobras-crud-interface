@@ -230,6 +230,26 @@ function ChartCard({
 
 function Dashboard() {
   const [period, setPeriod] = useState("12m");
+  const navigate = useNavigate();
+
+  const drill = (
+    type: "unit" | "refinery" | "period" | "well" | "segment",
+    id: string,
+    p?: string,
+  ) => {
+    navigate({
+      to: "/dashboard/detail",
+      search: { type, id, period: p ?? period },
+    });
+  };
+
+  const handleAxisClick = (
+    type: "period" | "refinery",
+    e: any,
+  ) => {
+    const label = e?.activeLabel ?? e?.activePayload?.[0]?.payload?.mes ?? e?.activePayload?.[0]?.payload?.name;
+    if (label) drill(type, String(label));
+  };
 
   const stats = useMemo(
     () => [
