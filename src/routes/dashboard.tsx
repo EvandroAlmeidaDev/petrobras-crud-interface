@@ -313,6 +313,9 @@ function Dashboard() {
             <p className="text-xs text-muted-foreground">Operações / Visão geral</p>
             <h1 className="text-base font-semibold tracking-tight">
               Dashboard executivo de operações
+              <span className="ml-2 inline-flex items-center rounded-full border border-[oklch(0.85_0.08_165)] bg-[oklch(0.95_0.06_165)] px-2 py-0.5 text-[10px] font-medium text-[oklch(0.32_0.11_168)]">
+                Drill-down ativo
+              </span>
             </h1>
           </div>
           <div className="flex items-center gap-2">
