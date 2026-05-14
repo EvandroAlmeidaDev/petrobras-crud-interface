@@ -605,6 +605,8 @@ function Dashboard() {
                     stroke="#fff"
                     fill={COLORS.green}
                     content={<TreemapContent />}
+                    onClick={(d: any) => drill("segment", d?.name ?? "Segmento")}
+                    style={{ cursor: "pointer" }}
                   />
                 </ResponsiveContainer>
               </div>
