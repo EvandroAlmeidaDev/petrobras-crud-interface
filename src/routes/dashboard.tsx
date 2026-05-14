@@ -596,8 +596,8 @@ function Dashboard() {
                     <div key={h} className="text-center">{h}h</div>
                   ))}
                   {heatData.map((row, di) => (
-                    <>
-                      <div key={`d-${di}`} className="flex items-center text-[10px] text-muted-foreground">
+                    <div key={`row-${di}`} className="contents">
+                      <div className="flex items-center text-[10px] text-muted-foreground">
                         {heatDays[di]}
                       </div>
                       {row.map((v, hi) => {
@@ -613,7 +613,7 @@ function Dashboard() {
                           />
                         );
                       })}
-                    </>
+                    </div>
                   ))}
                 </div>
                 <div className="mt-3 flex items-center justify-between text-[10px] text-muted-foreground">
