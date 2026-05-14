@@ -474,6 +474,8 @@ function Dashboard() {
                       outerRadius={95}
                       paddingAngle={2}
                       stroke="none"
+                      onClick={(d: any) => drill("segment", d?.name ?? "Segmento")}
+                      style={{ cursor: "pointer" }}
                     >
                       {sourceMix.map((s, i) => (
                         <Cell key={i} fill={s.color} />
