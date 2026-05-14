@@ -627,13 +627,14 @@ function Dashboard() {
                       {row.map((v, hi) => {
                         const intensity = v / heatMax;
                         return (
-                          <div
+                          <button
                             key={`c-${di}-${hi}`}
-                            className="aspect-square rounded-sm"
+                            onClick={() => drill("period", `${heatDays[di]} ${heatHours[hi]}h`)}
+                            className="aspect-square rounded-sm transition-transform hover:scale-110 hover:ring-2 hover:ring-[var(--petrobras-green)] cursor-pointer"
                             style={{
                               background: `oklch(${0.95 - intensity * 0.55} ${0.04 + intensity * 0.12} 165)`,
                             }}
-                            title={`${heatDays[di]} ${heatHours[hi]}h: ${v}`}
+                            title={`${heatDays[di]} ${heatHours[hi]}h: ${v} — clique para detalhar`}
                           />
                         );
                       })}
