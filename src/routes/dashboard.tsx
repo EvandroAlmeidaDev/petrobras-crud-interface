@@ -493,7 +493,7 @@ function Dashboard() {
             <ChartCard title="Capacidade por refinaria" subtitle="Mil barris/dia" badge="Barras">
               <div className="h-[260px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={refineryData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                  <BarChart data={refineryData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }} onClick={(e) => handleAxisClick("refinery", e)} style={{ cursor: "pointer" }}>
                     <CartesianGrid stroke={COLORS.grid} vertical={false} />
                     <XAxis dataKey="name" stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
                     <YAxis stroke={COLORS.gray} fontSize={11} tickLine={false} axisLine={false} />
