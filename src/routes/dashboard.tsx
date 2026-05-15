@@ -611,9 +611,8 @@ function Dashboard() {
           <p className="pt-2 text-center text-[11px] text-muted-foreground">
             Petrobras · Painel de operações · Dados ilustrativos para fins de demonstração
           </p>
-        </main>
-      </div>
-    </div>
+      </main>
+    </AppShell>
   );
 }
 
