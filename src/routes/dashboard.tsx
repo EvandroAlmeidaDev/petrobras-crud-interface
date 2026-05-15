@@ -32,20 +32,14 @@ import {
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Bell,
   Calendar,
   Download,
   Droplet,
-  Factory,
-  FileText,
-  HelpCircle,
-  LayoutDashboard,
-  Settings,
-  Users,
   Activity,
   Gauge,
   TrendingUp,
   Filter,
+  RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +50,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AppShell } from "@/components/petrobras/AppShell";
+import { TopBar } from "@/components/petrobras/TopBar";
 
 export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
