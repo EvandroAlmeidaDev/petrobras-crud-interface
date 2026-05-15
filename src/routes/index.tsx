@@ -98,10 +98,13 @@ const initialData: Asset[] = [
 ];
 
 const statusStyles: Record<Status, string> = {
-  Ativo: "bg-[oklch(0.95_0.06_165)] text-[oklch(0.32_0.11_168)] border-[oklch(0.85_0.08_165)]",
-  Manutenção: "bg-[oklch(0.96_0.1_95)] text-[oklch(0.42_0.13_70)] border-[oklch(0.85_0.12_95)]",
+  Ativo:
+    "bg-[var(--success-soft)] text-[var(--success)] border-[var(--success-border)]",
+  Manutenção:
+    "bg-[var(--warning-soft)] text-[var(--warning)] border-[var(--warning-border)]",
   Inativo: "bg-muted text-muted-foreground border-border",
-  Crítico: "bg-[oklch(0.95_0.06_25)] text-[oklch(0.45_0.18_25)] border-[oklch(0.85_0.1_25)]",
+  Crítico:
+    "bg-[var(--danger-soft)] text-[var(--danger)] border-[var(--danger-border)]",
 };
 
 function Index() {
