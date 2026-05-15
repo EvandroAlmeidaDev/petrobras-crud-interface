@@ -297,6 +297,6 @@ function DetailPage() {
           </ul>
         </section>
       </main>
-    </div>
+    </AppShell>
   );
 }
