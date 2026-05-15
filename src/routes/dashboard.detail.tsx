@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Area,
   AreaChart,
@@ -27,6 +27,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { AppShell } from "@/components/petrobras/AppShell";
+import { TopBar } from "@/components/petrobras/TopBar";
 
 type DrillType = "unit" | "refinery" | "period" | "well" | "segment";
 
