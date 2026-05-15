@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Search,
   Plus,
@@ -11,17 +11,15 @@ import {
   Eye,
   ChevronLeft,
   ChevronRight,
-  Bell,
-  HelpCircle,
-  LayoutDashboard,
-  Droplet,
   Factory,
-  Users,
-  FileText,
+  Droplet,
   Settings,
   ArrowUpRight,
   ArrowDownRight,
+  Inbox,
 } from "lucide-react";
+import { Area, AreaChart, ResponsiveContainer } from "recharts";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -49,6 +47,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -57,6 +65,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { AppShell } from "@/components/petrobras/AppShell";
+import { TopBar } from "@/components/petrobras/TopBar";
 
 export const Route = createFileRoute("/")({
   component: Index,
