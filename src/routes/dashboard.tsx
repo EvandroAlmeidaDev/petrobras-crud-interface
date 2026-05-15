@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   Area,
@@ -32,20 +32,14 @@ import {
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Bell,
   Calendar,
   Download,
   Droplet,
-  Factory,
-  FileText,
-  HelpCircle,
-  LayoutDashboard,
-  Settings,
-  Users,
   Activity,
   Gauge,
   TrendingUp,
   Filter,
+  RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +50,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AppShell } from "@/components/petrobras/AppShell";
+import { TopBar } from "@/components/petrobras/TopBar";
 
 export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
@@ -264,80 +260,29 @@ function Dashboard() {
   const heatMax = 100;
 
   return (
-    <div className="flex min-h-screen w-full bg-background text-foreground">
-      {/* Sidebar */}
-      <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-border bg-card">
-        <div className="flex h-16 items-center gap-3 border-b border-border px-5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[var(--petrobras-green)]">
-            <Droplet className="h-5 w-5 text-[var(--petrobras-yellow)]" strokeWidth={2.5} />
-          </div>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold tracking-tight">Petrobras</p>
-            <p className="text-[11px] text-muted-foreground">Gestão de Ativos</p>
-          </div>
-        </div>
-        <nav className="flex-1 space-y-1 p-3 text-sm">
-          {[
-            { icon: LayoutDashboard, label: "Dashboard", to: "/dashboard", active: true },
-            { icon: Factory, label: "Ativos", to: "/" },
-            { icon: Droplet, label: "Produção" },
-            { icon: Users, label: "Equipes" },
-            { icon: FileText, label: "Relatórios" },
-            { icon: Settings, label: "Configurações" },
-          ].map((item) => {
-            const cls = `flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors ${
-              item.active
-                ? "bg-[var(--petrobras-green)] text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-            }`;
-            return item.to ? (
-              <Link key={item.label} to={item.to} className={cls}>
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </Link>
-            ) : (
-              <button key={item.label} className={cls}>
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
-      </aside>
+    <AppShell>
+      <TopBar
+        title="Dashboard executivo de operações"
+        crumbs={[{ label: "Operações", to: "/" }, { label: "Dashboard" }]}
+        badge={
+          <span className="hidden sm:inline-flex items-center rounded-full border border-[var(--petrobras-green-border)] bg-[var(--petrobras-green-soft)] px-2 py-0.5 text-[10px] font-medium text-[var(--petrobras-green-text)]">
+            Drill-down ativo
+          </span>
+        }
+        actions={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground"
+            aria-label="Atualizar"
+            title="Atualizar dados"
+          >
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+        }
+      />
 
-      {/* Main */}
-      <div className="flex min-w-0 flex-1 flex-col">
-        {/* Topbar */}
-        <header className="flex h-16 items-center justify-between border-b border-border bg-card px-6">
-          <div>
-            <p className="text-xs text-muted-foreground">Operações / Visão geral</p>
-            <h1 className="text-base font-semibold tracking-tight">
-              Dashboard executivo de operações
-              <span className="ml-2 inline-flex items-center rounded-full border border-[oklch(0.85_0.08_165)] bg-[oklch(0.95_0.06_165)] px-2 py-0.5 text-[10px] font-medium text-[oklch(0.32_0.11_168)]">
-                Drill-down ativo
-              </span>
-            </h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="text-muted-foreground">
-              <HelpCircle className="h-4 w-4" />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-muted-foreground">
-              <Bell className="h-4 w-4" />
-            </Button>
-            <div className="ml-2 flex items-center gap-3 border-l border-border pl-4">
-              <div className="text-right leading-tight">
-                <p className="text-sm font-medium">Eduardo Silva</p>
-                <p className="text-[11px] text-muted-foreground">Engenheiro Sênior</p>
-              </div>
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--petrobras-green)] text-sm font-semibold text-primary-foreground">
-                ES
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main className="flex-1 space-y-6 p-6">
+      <main className="flex-1 space-y-6 p-4 sm:p-6 animate-fade-in">
           {/* Filters */}
           <section className="flex flex-wrap items-center justify-between gap-3">
             <Tabs value={period} onValueChange={setPeriod}>
@@ -666,9 +611,8 @@ function Dashboard() {
           <p className="pt-2 text-center text-[11px] text-muted-foreground">
             Petrobras · Painel de operações · Dados ilustrativos para fins de demonstração
           </p>
-        </main>
-      </div>
-    </div>
+      </main>
+    </AppShell>
   );
 }
 

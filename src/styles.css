@@ -73,8 +73,33 @@
   --primary-foreground: oklch(0.99 0.01 100);
   --petrobras-green: oklch(0.42 0.13 165);
   --petrobras-green-dark: oklch(0.32 0.11 168);
+  --petrobras-green-soft: oklch(0.95 0.06 165);
+  --petrobras-green-border: oklch(0.85 0.08 165);
+  --petrobras-green-text: oklch(0.32 0.11 168);
   --petrobras-yellow: oklch(0.86 0.17 95);
   --petrobras-blue: oklch(0.28 0.08 230);
+
+  /* Status / semantic tokens */
+  --success: oklch(0.5 0.15 165);
+  --success-soft: oklch(0.95 0.06 165);
+  --success-border: oklch(0.85 0.08 165);
+  --warning: oklch(0.55 0.15 70);
+  --warning-soft: oklch(0.96 0.1 95);
+  --warning-border: oklch(0.85 0.12 95);
+  --danger: oklch(0.55 0.2 25);
+  --danger-soft: oklch(0.95 0.06 25);
+  --danger-border: oklch(0.85 0.1 25);
+  --info: oklch(0.5 0.13 230);
+
+  /* Gradients & shadows */
+  --gradient-primary: linear-gradient(135deg, oklch(0.42 0.13 165), oklch(0.32 0.11 168));
+  --gradient-accent: linear-gradient(135deg, oklch(0.42 0.13 165) 0%, oklch(0.5 0.13 230) 100%);
+  --shadow-elegant: 0 10px 30px -12px color-mix(in oklab, oklch(0.42 0.13 165) 28%, transparent);
+  --shadow-card: 0 1px 2px oklch(0.18 0.04 200 / 0.04), 0 1px 3px oklch(0.18 0.04 200 / 0.06);
+
+  /* Sidebar */
+  --sidebar-width: 16rem;
+  --sidebar-width-icon: 4.25rem;
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
