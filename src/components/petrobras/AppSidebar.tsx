@@ -219,16 +219,18 @@ export function AppSidebar() {
     <>
       {/* Desktop */}
       <aside
-        className={cn(
-          "relative hidden lg:flex shrink-0 flex-col border-r border-border bg-card transition-[width] duration-200 ease-out",
-          collapsed ? "w-[var(--sidebar-width-icon)]" : "w-[var(--sidebar-width)]",
-        )}
+        className="relative hidden lg:flex shrink-0 flex-col border-r border-border bg-card transition-all duration-200 ease-out"
+        style={{
+          width: collapsed
+            ? "var(--sidebar-width-icon)"
+            : "var(--sidebar-width)",
+        }}
       >
         <Brand />
         <NavList />
         <Footer />
         {/* Floating toggle */}
-        <div className="absolute -right-3 top-20 z-20">
+        <div className="absolute -right-3 top-20 z-50">
           <ToggleBtn />
         </div>
       </aside>
