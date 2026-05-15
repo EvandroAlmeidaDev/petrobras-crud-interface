@@ -518,7 +518,33 @@ function Index() {
         asset={editing}
         onSave={handleSave}
       />
-    </div>
+
+      <AlertDialog
+        open={!!confirmDelete}
+        onOpenChange={(v) => !v && setConfirmDelete(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir ativo(s)?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação não pode ser desfeita.{" "}
+              {confirmDelete?.ids.length === 1
+                ? "1 ativo será removido permanentemente."
+                : `${confirmDelete?.ids.length ?? 0} ativos serão removidos permanentemente.`}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => confirmDelete && performDelete(confirmDelete.ids)}
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </AppShell>
   );
 }
 
