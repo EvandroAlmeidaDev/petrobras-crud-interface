@@ -126,42 +126,39 @@ function DetailPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 border-b border-border bg-card/90 backdrop-blur">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
+    <AppShell>
+      <TopBar
+        title={`${meta.label}: ${id}`}
+        crumbs={[
+          { label: "Operações", to: "/" },
+          { label: "Dashboard", to: "/dashboard" },
+          { label: meta.label },
+          { label: id },
+        ]}
+        actions={
+          <>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => navigate({ to: "/dashboard" })}
-              className="gap-1.5"
+              className="gap-1.5 hidden sm:inline-flex"
             >
               <ArrowLeft className="h-4 w-4" />
-              Dashboard
+              Voltar
             </Button>
-            <div className="h-6 w-px bg-border" />
-            <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Link to="/dashboard" className="hover:text-foreground">Dashboard</Link>
-              <span>/</span>
-              <span>{meta.label}</span>
-              <span>/</span>
-              <span className="font-medium text-foreground">{id}</span>
-            </nav>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="h-9">
+            <Button variant="outline" size="sm" className="h-9 hidden md:inline-flex">
               <Calendar className="mr-1.5 h-4 w-4" />
-              {period ?? "Período completo"}
+              {period ?? "Período"}
             </Button>
             <Button variant="outline" size="sm" className="h-9">
               <Download className="mr-1.5 h-4 w-4" />
               Exportar
             </Button>
-          </div>
-        </div>
-      </header>
+          </>
+        }
+      />
 
-      <main className="mx-auto max-w-[1400px] space-y-6 p-6">
+      <main className="mx-auto w-full max-w-[1400px] space-y-6 p-4 sm:p-6 animate-fade-in">
         {/* Hero */}
         <section className="rounded-lg border border-border bg-card p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
